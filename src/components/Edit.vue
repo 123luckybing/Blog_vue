@@ -24,7 +24,7 @@
 import axios from 'axios'
 import { timer } from '@/assets/time'
 export default {
-  data() {
+  data () {
     return {
       detail: {},
       ruleForm: {
@@ -34,44 +34,44 @@ export default {
     }
   },
   methods: {
-    timer(long) {
+    timer (long) {
       return timer(long)
     },
-     submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-             const { id } = this.$route.params
-            this.ruleForm.id = id
-            const data = JSON.stringify(this.ruleForm)
-            axios.post('/api/api/blog/update', data, {
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }).then((res) => {
-              if (res.data.error === 0) {
-                this.$message({
-                  message: '更新博客成功',
-                  type: 'success',
-                  onClose: () => {
-                    this.$router.push({ path:'/list' })
-                  }
-                });
-              } else {
-                this.$message({
-                  message: '更新博客失败',
-                  type: 'error'
-                });
-              }
-            }).catch((err) => {
-              console.log(err)
-            })
-          } else {
-            return false;
-          }
-        });
-      },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          const { id } = this.$route.params
+          this.ruleForm.id = id
+          const data = JSON.stringify(this.ruleForm)
+          axios.post('/api/api/blog/update', data, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then((res) => {
+            if (res.data.error === 0) {
+              this.$message({
+                message: '更新博客成功',
+                type: 'success',
+                onClose: () => {
+                  this.$router.push({ path: '/list' })
+                }
+              })
+            } else {
+              this.$message({
+                message: '更新博客失败',
+                type: 'error'
+              })
+            }
+          }).catch((err) => {
+            console.log(err)
+          })
+        } else {
+          return false
+        }
+      })
+    }
   },
-  mounted() {
+  mounted () {
     const { id } = this.$route.params
     axios.get('/api/api/blog/detail', {
       params: {
@@ -94,5 +94,3 @@ export default {
   margin: 20px auto;
 }
 </style>
-
-

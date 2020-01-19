@@ -57,59 +57,59 @@ export default {
     this.getList()
   },
   methods: {
-    getList() {
+    getList () {
       axios.get('/api/api/blog/list').then((res) => {
         this.blogList = res.data.data
       }).catch((err) => {
         console.log(err)
       })
     },
-    timer(it) {
+    timer (it) {
       return timer(it)
     },
-    submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios.get('/api/api/blog/list', {
-              params: this.ruleForm
-            }).then((res) => {
-              if (res.data.error === 0) {
-                this.blogList = res.data.data
-              } else {
-                this.none = true
-              }
-            }).catch((err) => {
-              console.log(err)
-            })
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-      del(id) {
-        this.$confirm('此操作将永久删除该博客, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          axios.get('/api/api/blog/delete',{
-            params: {
-              id: id
-            }
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          axios.get('/api/api/blog/list', {
+            params: this.ruleForm
           }).then((res) => {
-            this.getList()
-            console.log(res)
+            if (res.data.error === 0) {
+              this.blogList = res.data.data
+            } else {
+              this.none = true
+            }
           }).catch((err) => {
             console.log(err)
           })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });       
-        });
-      }
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    },
+    del (id) {
+      this.$confirm('此操作将永久删除该博客, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        axios.get('/api/api/blog/delete', {
+          params: {
+            id: id
+          }
+        }).then((res) => {
+          this.getList()
+          console.log(res)
+        }).catch((err) => {
+          console.log(err)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    }
   }
 }
 </script>

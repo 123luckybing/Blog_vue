@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
 import List from '@/components/List'
 import Detail from '@/components/Detail'
 import Login from '@/components/Login'
@@ -13,8 +12,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
+      redirect: '/list',
+      name: 'List',
+      component: List
     }, {
       path: '/list',
       name: 'List',

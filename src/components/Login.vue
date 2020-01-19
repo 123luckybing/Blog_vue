@@ -45,8 +45,8 @@ export default {
         password: ''
       },
       res: {
-         username: '',
-         password: ''
+        username: '',
+        password: ''
       },
       rules: {
         username: {
@@ -56,84 +56,83 @@ export default {
           required: true, message: '请输入密码', trigger: 'blur'
         },
         realName: {
-           required: true, message: '请输入真实姓名', trigger: 'blur'
+          required: true, message: '请输入真实姓名', trigger: 'blur'
         }
       }
     }
   },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
+    handleClick (tab, event) {
+      console.log(tab, event)
     },
-    loginIn(formName) {
+    loginIn (formName) {
       this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios.post('/api/api/user/login',this.login, {
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }).then((res) => {
-              if (res.data.error === 0) {
-                 // 种cookie
-                document.cookie = `username=${this.login.username}`
-                this.$message({
-                  message: '恭喜你，登陆成功',
-                  type: 'success',
-                  onClose: () => {
-                    this.$router.push('/list')
-                  }
-                });
-              } else {
-                this.$message({
-                  message: '登陆失败',
-                  type: 'error'
-                });
-              }
-            }).catch((err) => {
-              this.$message({
-                message: '登陆失败',
-                type: 'error'
-              });
-            })
-          }
-      })
-    },
-    resIn(formName) {
-      this.$refs[formName].validate((valid) => {
-          if (valid) {
-            axios.post('/api/api/user/register',this.res, {
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }).then((res) => {
+        if (valid) {
+          axios.post('/api/api/user/login', this.login, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then((res) => {
+            if (res.data.error === 0) {
               // 种cookie
-              document.cookie = `username=${this.res.username}`
+              document.cookie = `username=${this.login.username}`
               this.$message({
-                message: '恭喜你，注册成功',
+                message: '恭喜你，登陆成功',
                 type: 'success',
                 onClose: () => {
                   this.$router.push('/list')
                 }
-              });
-            }).catch((err) => {
+              })
+            } else {
               this.$message({
-                message: '注册失败',
+                message: '登陆失败',
                 type: 'error'
-              });
+              })
+            }
+          }).catch(() => {
+            this.$message({
+              message: '登陆失败',
+              type: 'error'
             })
-          }
+          })
+        }
       })
     },
-    resetForm(formName) {
-        this.$refs[formName].resetFields();
+    resIn (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          axios.post('/api/api/user/register', this.res, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then((res) => {
+            // 种cookie
+            document.cookie = `username=${this.res.username}`
+            this.$message({
+              message: '恭喜你，注册成功',
+              type: 'success',
+              onClose: () => {
+                this.$router.push('/list')
+              }
+            })
+          }).catch(() => {
+            this.$message({
+              message: '注册失败',
+              type: 'error'
+            })
+          })
+        }
+      })
     },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
   },
   mounted () {
 
   }
 }
 </script>
-
 
 <style scoped>
 .login {

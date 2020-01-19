@@ -33,40 +33,40 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            const data = JSON.stringify(this.ruleForm)
-            axios.post('/api/api/blog/new', data, {
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }).then((res) => {
-              if (res.data.error === 0) {
-                this.$message({
-                  message: '新建博客成功',
-                  type: 'success',
-                  onClose: () => {
-                    this.$router.push({ path:'/list' })
-                  }
-                });
-              } else {
-                this.$message({
-                  message: '新建博客失败',
-                  type: 'error'
-                });
-              }
-            }).catch((err) => {
-              console.log(err)
-            })
-          } else {
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          const data = JSON.stringify(this.ruleForm)
+          axios.post('/api/api/blog/new', data, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then((res) => {
+            if (res.data.error === 0) {
+              this.$message({
+                message: '新建博客成功',
+                type: 'success',
+                onClose: () => {
+                  this.$router.push({ path: '/list' })
+                }
+              })
+            } else {
+              this.$message({
+                message: '新建博客失败',
+                type: 'error'
+              })
+            }
+          }).catch((err) => {
+            console.log(err)
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
   }
 }
 </script>
@@ -77,5 +77,3 @@ export default {
   margin: 30px auto;
 }
 </style>
-
-
